@@ -45,8 +45,8 @@ function generateKey() {
     var licenseKeyDisplay = document.getElementById('license-key-display');
     var licenseKeyQR = document.getElementById('license-key-qr');
 
-    let result = encrypted.replace(/\+/g, "_");
-    licenseKeyDisplay.textContent = result;
+    let result = encrypted.replace(/\+/g, "%2B");
+    licenseKeyDisplay.textContent = encrypted;
 
     var imageURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + result;
     licenseKeyQR.src = imageURL;
