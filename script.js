@@ -57,6 +57,19 @@ function generateKey() {
 }
 
 // Set minimum date for start date picker to today
-const startDatePicker = document.getElementById('start-date-picker');
-const today = new Date().toISOString().split('T')[0];
-startDatePicker.min = today;
+
+// Set default dates when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date();
+    const nextMonth = new Date(today);
+    nextMonth.setMonth(today.getMonth() + 1);
+
+    const startDatePicker = document.getElementById('start-date-picker');
+    const endDatePicker = document.getElementById('date-picker');
+
+    startDatePicker.value = today.toISOString().split('T')[0];
+    startDatePicker.min = startDatePicker.value;
+    endDatePicker.value = nextMonth.toISOString().split('T')[0];
+    
+    generateKey(); // Trigger initial key generation if needed
+});
