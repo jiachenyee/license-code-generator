@@ -55,3 +55,8 @@ function generateKey() {
     licenseKeyQR.src = imageURL;
   });
 }
+
+// Set minimum date for start date picker to today
+const startDatePicker = document.getElementById('start-date-picker');
+const today = new Date().toISOString().split('T')[0];
+startDatePicker.min = today;
