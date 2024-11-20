@@ -56,9 +56,33 @@ function generateKey() {
   });
 }
 
-// Set minimum date for start date picker to today
+function handleStartDateChange() {
+  const startDatePicker = document.getElementById('start-date-picker');
+  const endDatePicker = document.getElementById('date-picker');
+  
+  // Set minimum end date to start date
+  endDatePicker.min = startDatePicker.value;
+  
+  // If end date is before start date, update it
+  if (endDatePicker.value < startDatePicker.value) {
+    endDatePicker.value = startDatePicker.value;
+  }
+  
+  generateKey();
+}
 
-// Set default dates when page loads
+function handleEndDateChange() {
+  const startDatePicker = document.getElementById('start-date-picker');
+  const endDatePicker = document.getElementById('date-picker');
+  
+  // If end date is before start date, revert to start date
+  if (endDatePicker.value < startDatePicker.value) {
+    endDatePicker.value = startDatePicker.value;
+  }
+  
+  generateKey();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const today = new Date();
     const nextMonth = new Date(today);
@@ -69,7 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startDatePicker.value = today.toISOString().split('T')[0];
     startDatePicker.min = startDatePicker.value;
+    
+    // Set initial min value for end date picker
+    endDatePicker.min = startDatePicker.value;
     endDatePicker.value = nextMonth.toISOString().split('T')[0];
     
-    generateKey(); // Trigger initial key generation if needed
+    generateKey();
 });

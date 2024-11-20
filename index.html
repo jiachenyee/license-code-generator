@@ -16,12 +16,12 @@
 
             <div class="input-wrapper">
                 <p class="input-label">Start Date (Access begins on this date at midnight, GMT+0)</p>
-                <input id="start-date-picker" type="date" onchange="generateKey()" min="" value="">
+                <input id="start-date-picker" type="date" onchange="handleStartDateChange()" min="" value="">
             </div>
 
             <div class="input-wrapper">
                 <p class="input-label">Expiry Date (Access gets revoked on this date at midnight, GMT+0)</p>
-                <input id="date-picker" type="date" onchange="generateKey()" value="">
+                <input id="date-picker" type="date" onchange="handleEndDateChange()" value="">
             </div>
 
             <div class="input-wrapper">
