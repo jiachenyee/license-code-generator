@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com"> 
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
-    <body>
-        <div id="app" class="v-stack full-screen padding">
-            <div class="container">
-                <h1 class="title">License Key Generator</h1>
 
-                <div class="input-wrapper">
-                    <p class="input-label">Expiry Date (Access gets revoked on this date at midnight, GMT+0)</p>
-                    <input id="date-picker" type="date" onchange="generateKey()">
-                </div>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
 
-                <div class="input-wrapper">
-                    <p class="input-label">Password</p>
-                    <input id="password-field" type="password" onchange="generateKey()" placeholder="Password">
-                </div>
+<body>
+    <div id="app" class="v-stack full-screen padding">
+        <div class="container">
+            <h1 class="title">License Key Generator</h1>
 
-                <div id="key-display" class="v-stack padding background-gray border-radius align-left">
-                    <h2 class="headline">License Key</h2>
-                    <img id="license-key-qr" width="150" height="150">
-                    <p id="license-key-display" class="license-key-text">Enter a password to generate</p>
-                    
-                </div>
+            <div class="input-wrapper">
+                <p class="input-label">Start Date (Access begins on this date at midnight, GMT+0)</p>
+                <input id="start-date-picker" type="date" onchange="generateKey()">
+            </div>
+
+            <div class="input-wrapper">
+                <p class="input-label">Expiry Date (Access gets revoked on this date at midnight, GMT+0)</p>
+                <input id="date-picker" type="date" onchange="generateKey()">
+            </div>
+
+            <div class="input-wrapper">
+                <p class="input-label">Password</p>
+                <input id="password-field" type="password" onchange="generateKey()" placeholder="Password">
+            </div>
+
+            <div id="key-display" class="v-stack padding background-gray border-radius align-left">
+                <h2 class="headline">License Key</h2>
+                <img id="license-key-qr" width="150" height="150">
+                <p id="license-key-display" class="license-key-text">Enter a password to generate</p>
+
             </div>
         </div>
-        <script src="script.js"></script>
-    </body>
+    </div>
+    <script src="script.js"></script>
+</body>
+
 </html>

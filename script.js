@@ -29,19 +29,22 @@ async function encrypt(data, password) {
 }
 
 function generateKey() {
-  console.log("Hello")
-  var datePicker = document.getElementById('date-picker');
-  var selectedDateValue = datePicker.value;
-  var selectedDate = new Date(selectedDateValue);
-  console.log(selectedDate);
-  var timeInterval = selectedDate.getTime() / 1000;  // Convert milliseconds to seconds
-  
+  var startDatePicker = document.getElementById('start-date-picker');
+  var expiryDatePicker = document.getElementById('date-picker');
   var passwordField = document.getElementById('password-field');
 
-  let password = passwordField.value; // password must be 16 characters long
-  let value = timeInterval;
+  var startDate = new Date(startDatePicker.value);
+  var expiryDate = new Date(expiryDatePicker.value);
+  
+  var startTime = startDate.getTime() / 1000;  // Convert to seconds
+  var expiryTime = expiryDate.getTime() / 1000;
+  
+  let password = passwordField.value;
+  // Combine both timestamps with a separator
+  let value = `${startTime};${expiryTime}`;
+  console.log(value);
 
-  encrypt(value.toString(), password).then(encrypted => {
+  encrypt(value, password).then(encrypted => {
     var licenseKeyDisplay = document.getElementById('license-key-display');
     var licenseKeyQR = document.getElementById('license-key-qr');
 
