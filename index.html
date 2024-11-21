@@ -15,7 +15,10 @@
             <h1 class="title">License Key Generator</h1>
 
             <div class="input-wrapper">
-                <p class="input-label">Start Date (Access begins on this date at midnight, GMT+0)</p>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="disable-start-date" onchange="toggleStartDate()">
+                    <p class="input-label">Start Date (Access begins on this date at midnight, GMT+0)</p>
+                </div>
                 <input id="start-date-picker" type="date" onchange="handleStartDateChange()" min="" value="">
             </div>
 
@@ -34,6 +37,10 @@
                 <img id="license-key-qr" width="150" height="150">
                 <p id="license-key-display" class="license-key-text">Enter a password to generate</p>
 
+            </div>
+
+            <div id="info">
+                <p></p>
             </div>
         </div>
     </div>

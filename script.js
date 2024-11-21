@@ -28,32 +28,43 @@ async function encrypt(data, password) {
   return btoa(String.fromCharCode(...buffer));
 }
 
+function toggleStartDate() {
+    const startDatePicker = document.getElementById('start-date-picker');
+    const startDateLabel = document.querySelector('.input-label');
+    const enableStartDate = document.getElementById('disable-start-date');
+    
+    startDatePicker.disabled = !enableStartDate.checked;
+    startDateLabel.style.color = !enableStartDate.checked ? '#999' : '#000';
+    generateKey();
+}
+
 function generateKey() {
-  var startDatePicker = document.getElementById('start-date-picker');
-  var expiryDatePicker = document.getElementById('date-picker');
-  var passwordField = document.getElementById('password-field');
+    var startDatePicker = document.getElementById('start-date-picker');
+    var expiryDatePicker = document.getElementById('date-picker');
+    var passwordField = document.getElementById('password-field');
+    var enableStartDate = document.getElementById('disable-start-date');
 
-  var startDate = new Date(startDatePicker.value);
-  var expiryDate = new Date(expiryDatePicker.value);
-  
-  var startTime = startDate.getTime() / 1000;  // Convert to seconds
-  var expiryTime = expiryDate.getTime() / 1000;
-  
-  let password = passwordField.value;
-  // Combine both timestamps with a separator
-  let value = `${startTime};${expiryTime}`;
-  console.log(value);
+    var expiryDate = new Date(expiryDatePicker.value);
+    var expiryTime = expiryDate.getTime() / 1000;
 
-  encrypt(value, password).then(encrypted => {
-    var licenseKeyDisplay = document.getElementById('license-key-display');
-    var licenseKeyQR = document.getElementById('license-key-qr');
+    let password = passwordField.value;
+    // Only include start time if start date is enabled
+    let value = enableStartDate.checked ? 
+        `${startDatePicker.value ? new Date(startDatePicker.value).getTime() / 1000 : ''};${expiryTime}` : 
+        `${expiryTime}`;
 
-    let result = encrypted.replace(/\+/g, "%2B");
-    licenseKeyDisplay.textContent = encrypted;
+    document.querySelector('#info p').textContent = `${value}`;
 
-    var imageURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + result;
-    licenseKeyQR.src = imageURL;
-  });
+    encrypt(value, password).then(encrypted => {
+        var licenseKeyDisplay = document.getElementById('license-key-display');
+        var licenseKeyQR = document.getElementById('license-key-qr');
+
+        let result = encrypted.replace(/\+/g, "%2B");
+        licenseKeyDisplay.textContent = encrypted;
+
+        var imageURL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + result;
+        licenseKeyQR.src = imageURL;
+    });
 }
 
 function handleStartDateChange() {
@@ -98,5 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
     endDatePicker.min = startDatePicker.value;
     endDatePicker.value = nextMonth.toISOString().split('T')[0];
     
+    toggleStartDate();
     generateKey();
 });
